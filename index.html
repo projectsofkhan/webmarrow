@@ -3,27 +3,82 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#fbfaf7">
+  <meta name="theme-color" content="#ffffff">
 
-  <title>WebMarrow — Websites built with care and clarity</title>
-  <meta name="description" content="WebMarrow is a small studio designing and developing modern, responsive websites for individuals, startups and small businesses.">
+  <!-- =========================================================
+       PRIMARY SEO
+  ========================================================== -->
+  <title>WebMarrow — Websites Built With Care and Clarity</title>
+  <meta name="description" content="WebMarrow is a small web design and development studio building modern, responsive websites for individuals, startups and small businesses. Thoughtful work, built to last.">
+  <meta name="keywords" content="WebMarrow, web design studio, web development, responsive websites, small business websites, startup landing pages, portfolio websites, website redesign, India web studio">
   <meta name="author" content="WebMarrow">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta name="googlebot" content="index, follow">
   <link rel="canonical" href="https://webmarrow.vercel.app/">
 
-  <link rel="icon" href="favicon.ico">
+  <!-- Google Search Console verification -->
+  <meta name="google-site-verification" content="y2KUdk5NLGrxUgulLoxvA0a2y3jQlVPObdNtYkIef2U" />
+
+  <!-- =========================================================
+       ICONS
+  ========================================================== -->
+  <link rel="icon" href="favicon.ico" sizes="any">
   <link rel="apple-touch-icon" href="favicon.ico">
 
+  <!-- =========================================================
+       OPEN GRAPH
+  ========================================================== -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="WebMarrow — Websites built with care and clarity">
-  <meta property="og:description" content="A small studio designing and developing modern, responsive websites.">
+  <meta property="og:site_name" content="WebMarrow">
+  <meta property="og:title" content="WebMarrow — Websites Built With Care and Clarity">
+  <meta property="og:description" content="A small web design and development studio building modern, responsive websites for people, startups and small businesses.">
   <meta property="og:url" content="https://webmarrow.vercel.app/">
-  <meta property="og:image" content="https://webmarrow.vercel.app/favicon.ico">
+  <meta property="og:image" content="https://webmarrow.vercel.app/webmarrow.png">
+  <meta property="og:image:alt" content="WebMarrow studio">
+  <meta property="og:locale" content="en_US">
 
+  <!-- =========================================================
+       TWITTER
+  ========================================================== -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="WebMarrow — Websites Built With Care and Clarity">
+  <meta name="twitter:description" content="A small studio building modern, responsive websites with care.">
+  <meta name="twitter:image" content="https://webmarrow.vercel.app/webmarrow.png">
+
+  <!-- =========================================================
+       FONTS
+  ========================================================== -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css">
+
+  <!-- =========================================================
+       STRUCTURED DATA
+  ========================================================== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "WebMarrow",
+    "url": "https://webmarrow.vercel.app",
+    "logo": "https://webmarrow.vercel.app/webmarrow.png",
+    "image": "https://webmarrow.vercel.app/webmarrow.png",
+    "description": "A small web design and development studio building modern, responsive websites.",
+    "email": "webmarrow@gmail.com",
+    "sameAs": [
+      "https://instagram.com/webmarrow"
+    ],
+    "areaServed": "Worldwide",
+    "serviceType": [
+      "Web Design",
+      "Web Development",
+      "Website Redesign",
+      "Website Support"
+    ]
+  }
+  </script>
 </head>
 
 <body>
@@ -32,7 +87,7 @@
        PRELOADER
   =========================================================== -->
   <div class="preloader" id="preloader" aria-hidden="true">
-    <img class="preloader-logo" src="favicon.ico" alt="" width="36" height="36">
+    <img class="preloader-logo" src="webmarrow.png" alt="WebMarrow" width="72" height="72">
     <span class="preloader-name">webmarrow</span>
   </div>
 
@@ -43,7 +98,7 @@
     <div class="header-inner">
 
       <a class="brand" href="index.html" aria-label="WebMarrow home">
-        <img class="brand-logo" src="favicon.ico" alt="" width="30" height="30">
+        <img class="brand-logo" src="favicon.ico" alt="WebMarrow" width="30" height="30">
         <span class="brand-name">webmarrow</span>
       </a>
 
@@ -275,7 +330,7 @@
     </section>
 
     <!-- ========================================================
-         CONTACT
+         CONTACT (no form — links only)
     ========================================================= -->
     <section class="contact" id="contact">
       <div class="wrap contact-grid">
@@ -286,113 +341,67 @@
             Let’s build<br><em>something good.</em>
           </h2>
           <p class="section-sub reveal" data-delay="140">
-            Share a little about your project. We will reply with honest
+            Reach out by email or Instagram. We will reply with honest
             thoughts, a realistic timeline and a clear next step.
           </p>
-
-          <ul class="contact-details reveal" data-delay="200">
-
-            <li>
-              <span class="contact-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" width="18" height="18"
-                     fill="none" stroke="currentColor" stroke-width="1.6"
-                     stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="3" y="5" width="18" height="14" rx="2"/>
-                  <path d="m3 7 9 6 9-6"/>
-                </svg>
-              </span>
-              <span class="contact-meta">
-                <small>Email</small>
-                <a href="mailto:webmarrow@gmail.com">webmarrow@gmail.com</a>
-              </span>
-              <button class="copy-btn" type="button"
-                      data-copy="webmarrow@gmail.com"
-                      aria-label="Copy email address">Copy</button>
-            </li>
-
-            <li>
-              <span class="contact-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" width="18" height="18"
-                     fill="none" stroke="currentColor" stroke-width="1.6"
-                     stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="3" y="3" width="18" height="18" rx="5"/>
-                  <circle cx="12" cy="12" r="4"/>
-                  <circle cx="17.5" cy="6.5" r="1"/>
-                </svg>
-              </span>
-              <span class="contact-meta">
-                <small>Instagram</small>
-                <a href="https://instagram.com/webmarrow"
-                   target="_blank" rel="noopener">@webmarrow</a>
-              </span>
-            </li>
-
-            <li>
-              <span class="contact-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" width="18" height="18"
-                     fill="none" stroke="currentColor" stroke-width="1.6"
-                     stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="12" cy="12" r="9"/>
-                  <path d="M3 12h18"/>
-                  <path d="M12 3a15 15 0 0 1 0 18"/>
-                  <path d="M12 3a15 15 0 0 0 0 18"/>
-                </svg>
-              </span>
-              <span class="contact-meta">
-                <small>Website</small>
-                <a href="https://webmarrow.vercel.app"
-                   target="_blank" rel="noopener">webmarrow.vercel.app</a>
-              </span>
-            </li>
-
-          </ul>
         </div>
 
-        <form class="contact-form reveal" id="contactForm"
-              data-delay="120" novalidate>
+        <ul class="contact-details reveal" data-delay="200">
 
-          <div class="field">
-            <label for="name">Your name</label>
-            <input id="name" name="name" type="text"
-                   autocomplete="name"
-                   placeholder="e.g. Aarav Mehta" required>
-            <span class="field-error" data-error-for="name"></span>
-          </div>
+          <li>
+            <span class="contact-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="18" height="18"
+                   fill="none" stroke="currentColor" stroke-width="1.6"
+                   stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="5" width="18" height="14" rx="2"/>
+                <path d="m3 7 9 6 9-6"/>
+              </svg>
+            </span>
+            <span class="contact-meta">
+              <small>Email</small>
+              <a href="mailto:webmarrow@gmail.com">webmarrow@gmail.com</a>
+            </span>
+            <button class="copy-btn" type="button"
+                    data-copy="webmarrow@gmail.com"
+                    aria-label="Copy email address">Copy</button>
+          </li>
 
-          <div class="field">
-            <label for="email">Email address</label>
-            <input id="email" name="email" type="email"
-                   autocomplete="email"
-                   placeholder="you@example.com" required>
-            <span class="field-error" data-error-for="email"></span>
-          </div>
+          <li>
+            <span class="contact-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="18" height="18"
+                   fill="none" stroke="currentColor" stroke-width="1.6"
+                   stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="5"/>
+                <circle cx="12" cy="12" r="4"/>
+                <circle cx="17.5" cy="6.5" r="1"/>
+              </svg>
+            </span>
+            <span class="contact-meta">
+              <small>Instagram</small>
+              <a href="https://instagram.com/webmarrow"
+                 target="_blank" rel="noopener">@webmarrow</a>
+            </span>
+          </li>
 
-          <div class="field">
-            <label for="project">Tell us about your project</label>
-            <textarea id="project" name="project" rows="5"
-                      placeholder="What would you like to build?"
-                      required></textarea>
-            <span class="field-error" data-error-for="project"></span>
-          </div>
+          <li>
+            <span class="contact-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="18" height="18"
+                   fill="none" stroke="currentColor" stroke-width="1.6"
+                   stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9"/>
+                <path d="M3 12h18"/>
+                <path d="M12 3a15 15 0 0 1 0 18"/>
+                <path d="M12 3a15 15 0 0 0 0 18"/>
+              </svg>
+            </span>
+            <span class="contact-meta">
+              <small>Website</small>
+              <a href="https://webmarrow.vercel.app"
+                 target="_blank" rel="noopener">webmarrow.vercel.app</a>
+            </span>
+          </li>
 
-          <button class="btn btn-primary btn-full" type="submit">
-            <span>Send message</span>
-            <svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16"
-                 fill="none" stroke="currentColor" stroke-width="2"
-                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <line x1="7" y1="17" x2="17" y2="7"/>
-              <polyline points="7 7 17 7 17 17"/>
-            </svg>
-          </button>
-
-          <p class="form-note">
-            Opens your email app with the message pre-filled for
-            <strong>webmarrow@gmail.com</strong>.
-          </p>
-          <p class="form-status" id="formStatus" role="status"
-             aria-live="polite"></p>
-
-        </form>
+        </ul>
 
       </div>
     </section>
@@ -407,7 +416,7 @@
 
       <div class="footer-brand">
         <a class="brand" href="index.html" aria-label="WebMarrow home">
-          <img class="brand-logo" src="favicon.ico" alt=""
+          <img class="brand-logo" src="favicon.ico" alt="WebMarrow"
                width="28" height="28">
           <span class="brand-name">webmarrow</span>
         </a>
