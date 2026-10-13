@@ -1,8 +1,7 @@
 /* ============================================================
    WEBMARROW — SCRIPT.JS
    ------------------------------------------------------------
-   Minimal, performant interactions. Smooth reveals, quick
-   responders, no heavy effects.
+   Slow, smooth interactions. No custom cursor. No heavy effects.
    ============================================================ */
 
 (() => {
@@ -13,6 +12,8 @@
     revealRootMargin: '0px 0px -60px 0px',
     headerScrollAfter: 12,
     headerHideAfter: 400,
+    preloaderMinDuration: 2400,
+    preloaderFadeDuration: 1000,
     contactEmail: 'webmarrow@gmail.com'
   };
 
@@ -25,21 +26,31 @@
   const on = (el, ev, fn, opts) => el && el.addEventListener(ev, fn, opts);
 
   /* ==========================================================
-     PRELOADER
+     PRELOADER — held visible for a calm, deliberate reveal
   ========================================================== */
   const initPreloader = () => {
     const preloader = $('#preloader');
     if (!preloader) return;
 
+    const startTime = Date.now();
+
     const hide = () => {
-      preloader.classList.add('is-hidden');
-      setTimeout(() => preloader.remove(), 600);
+      const elapsed = Date.now() - startTime;
+      const wait = Math.max(0, CONFIG.preloaderMinDuration - elapsed);
+
+      setTimeout(() => {
+        preloader.classList.add('is-hidden');
+
+        setTimeout(() => {
+          if (preloader.parentNode) preloader.remove();
+        }, CONFIG.preloaderFadeDuration);
+      }, wait);
     };
 
     if (document.readyState === 'complete') {
-      setTimeout(hide, 300);
+      hide();
     } else {
-      window.addEventListener('load', () => setTimeout(hide, 300));
+      window.addEventListener('load', hide);
     }
   };
 
@@ -217,110 +228,6 @@
   };
 
   /* ==========================================================
-     CONTACT FORM
-  ========================================================== */
-  const initForm = () => {
-    const form = $('#contactForm');
-    if (!form) return;
-
-    const status = $('#formStatus');
-
-    const validators = {
-      name: (v) => {
-        if (!v.trim()) return 'Please tell us your name.';
-        if (v.trim().length < 2) return 'That name looks a little short.';
-        return '';
-      },
-      email: (v) => {
-        if (!v.trim()) return 'We need an email to reply.';
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) {
-          return 'That email does not look right.';
-        }
-        return '';
-      },
-      project: (v) => {
-        if (!v.trim()) return 'Tell us a little about the project.';
-        if (v.trim().length < 10) return 'A few more words, please.';
-        return '';
-      }
-    };
-
-    const setError = (field, message) => {
-      const err = document.querySelector(`[data-error-for="${field}"]`);
-      const input = form.querySelector(`[name="${field}"]`);
-      if (err) err.textContent = message || '';
-      if (input) input.classList.toggle('is-error', Boolean(message));
-    };
-
-    const validate = () => {
-      let ok = true;
-      Object.entries(validators).forEach(([name, fn]) => {
-        const input = form.querySelector(`[name="${name}"]`);
-        if (!input) return;
-        const msg = fn(input.value);
-        if (msg) ok = false;
-        setError(name, msg);
-      });
-      return ok;
-    };
-
-    $$('input, textarea, select', form).forEach((input) => {
-      on(input, 'blur', () => {
-        const name = input.name;
-        if (validators[name]) {
-          setError(name, validators[name](input.value));
-        }
-      });
-
-      on(input, 'input', () => {
-        if (input.classList.contains('is-error')) {
-          const name = input.name;
-          if (validators[name]) {
-            setError(name, validators[name](input.value));
-          }
-        }
-      });
-    });
-
-    on(form, 'submit', (e) => {
-      e.preventDefault();
-
-      if (!validate()) {
-        if (status) {
-          status.textContent = 'Please check the highlighted fields.';
-          status.style.color = 'var(--error)';
-        }
-        const firstError = form.querySelector('.is-error');
-        if (firstError) firstError.focus();
-        return;
-      }
-
-      const data = new FormData(form);
-      const subject = encodeURIComponent('New WebMarrow enquiry');
-      const body = encodeURIComponent(
-        `Name: ${data.get('name')}\n` +
-        `Email: ${data.get('email')}\n\n` +
-        `Project details:\n${data.get('project')}`
-      );
-
-      if (status) {
-        status.textContent = 'Opening your email app…';
-        status.style.color = 'var(--green)';
-      }
-
-      setTimeout(() => {
-        window.location.href =
-          `mailto:${CONFIG.contactEmail}?subject=${subject}&body=${body}`;
-
-        if (status) {
-          status.textContent =
-            'Message ready — send it from your email app.';
-        }
-      }, 300);
-    });
-  };
-
-  /* ==========================================================
      COPY TO CLIPBOARD
   ========================================================== */
   const initCopy = () => {
@@ -342,7 +249,7 @@
           setTimeout(() => {
             btn.classList.remove('is-copied');
             btn.textContent = original;
-          }, 1600);
+          }, 1800);
         } catch (err) {
           showToast('Could not copy — please copy manually.');
         }
@@ -412,7 +319,6 @@
     initSmoothScroll();
     initReveal();
     initFAQ();
-    initForm();
     initCopy();
     initBackToTop();
     initYear();
