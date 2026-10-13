@@ -1,47 +1,8 @@
 /* ============================================================
    WEBMARROW — STYLE.CSS
    ------------------------------------------------------------
-   A quiet, editorial system. Solid colours only. No gradients.
-   No emojis. No AI-tells. Just type, space and motion.
-   Smoother reveal motion, hover states and transitions.
-   ============================================================ */
-
-/* ============================================================
-   CONTENTS
-   ------------------------------------------------------------
-   01. Fonts
-   02. Reset
-   03. Design tokens
-   04. Base typography
-   05. Layout
-   06. Utilities
-   07. Preloader
-   08. Header & brand
-   09. Navigation
-   10. Mobile navigation
-   11. Buttons
-   12. Eyebrow & section heads
-   13. Hero (home)
-   14. Services
-   15. Process
-   16. FAQ
-   17. Contact
-   18. About hero
-   19. Story
-   20. Values
-   21. Quote
-   22. Approach
-   23. Who we work with
-   24. CTA band
-   25. Footer
-   26. Back to top
-   27. Toast
-   28. Reveal animations
-   29. Keyframes
-   30. Media queries — 1000px
-   31. Media queries — 760px
-   32. Media queries — 520px
-   33. Reduced motion
+   A quiet, editorial system. Solid colours only. Pure white
+   background. No gradients. No emojis. Smooth, simple motion.
    ============================================================ */
 
 /* ============================================================
@@ -137,18 +98,19 @@ select:focus-visible {
    03. DESIGN TOKENS
    ============================================================ */
 :root {
-  --bg: #fbfaf7;
+  /* Pure white background everywhere */
+  --bg: #ffffff;
   --surface: #ffffff;
-  --soft: #f3f1ec;
-  --soft-2: #eceae4;
+  --soft: #f6f6f4;
+  --soft-2: #efefec;
 
   --ink: #17181a;
   --ink-2: #2a2c2f;
   --muted: #6f7176;
   --muted-2: #9a9c9f;
 
-  --line: #e6e3dc;
-  --line-2: #efedE7;
+  --line: #e8e6e1;
+  --line-2: #f0eeea;
 
   --green: #2f7a55;
   --green-dark: #1f5e40;
@@ -166,8 +128,8 @@ select:focus-visible {
   --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
 
   --t-fast: 0.24s;
-  --t-mid: 0.46s;
-  --t-slow: 0.85s;
+  --t-mid: 0.5s;
+  --t-slow: 0.9s;
 
   --header-h: 76px;
   --wrap: 1080px;
@@ -323,7 +285,7 @@ strong {
 }
 
 .site-header.is-scrolled {
-  background: rgba(251, 250, 247, 0.9);
+  background: rgba(255, 255, 255, 0.92);
   backdrop-filter: saturate(160%) blur(10px);
   -webkit-backdrop-filter: saturate(160%) blur(10px);
   border-bottom-color: var(--line-2);
@@ -385,7 +347,7 @@ strong {
   color: var(--muted);
   padding: 4px 0;
   position: relative;
-  transition: color var(--t-fast) var(--ease);
+  transition: color var(--t-mid) var(--ease);
 }
 
 .nav-link::after {
@@ -547,7 +509,6 @@ strong {
   transition: transform var(--t-mid) var(--ease);
 }
 
-/* -- Primary -- */
 .btn-primary {
   background: var(--ink);
   color: var(--bg);
@@ -566,7 +527,6 @@ strong {
   transform: translateY(1px) scale(0.985);
 }
 
-/* -- Ghost -- */
 .btn-ghost {
   background: transparent;
   color: var(--ink);
@@ -680,6 +640,11 @@ strong {
 
 /* ============================================================
    13. SERVICES
+   ------------------------------------------------------------
+   Smooth, simple row animations:
+   - Row background fades in
+   - Number and title tint to green
+   - A soft green left accent slides in
    ============================================================ */
 .services {
   border-top: 1px solid var(--line-2);
@@ -693,6 +658,7 @@ strong {
 }
 
 .service-item {
+  position: relative;
   display: grid;
   grid-template-columns: 80px 1fr;
   gap: 32px;
@@ -703,10 +669,27 @@ strong {
               padding var(--t-mid) var(--ease);
 }
 
+.service-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--green);
+  transform: scaleY(0);
+  transform-origin: center;
+  transition: transform var(--t-mid) var(--ease);
+}
+
 .service-item:hover {
   background: var(--soft);
-  padding-left: 16px;
-  padding-right: 16px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.service-item:hover::before {
+  transform: scaleY(1);
 }
 
 .service-num {
@@ -716,11 +699,22 @@ strong {
   color: var(--green);
   letter-spacing: 0.04em;
   padding-top: 6px;
+  transition: color var(--t-mid) var(--ease),
+              transform var(--t-mid) var(--ease);
+}
+
+.service-item:hover .service-num {
+  transform: translateX(2px);
 }
 
 .service-body h3 {
   font-size: 1.25rem;
   margin-bottom: 8px;
+  transition: color var(--t-mid) var(--ease);
+}
+
+.service-item:hover .service-body h3 {
+  color: var(--green);
 }
 
 .service-body p {
@@ -728,10 +722,20 @@ strong {
   line-height: 1.7;
   color: var(--muted);
   max-width: 560px;
+  transition: color var(--t-mid) var(--ease);
+}
+
+.service-item:hover .service-body p {
+  color: var(--ink-2);
 }
 
 /* ============================================================
    14. PROCESS
+   ------------------------------------------------------------
+   Smooth, simple column animations:
+   - Top border turns green
+   - Number and title fade to green
+   - Subtle lift
    ============================================================ */
 .process {
   border-top: 1px solid var(--line-2);
@@ -746,11 +750,13 @@ strong {
 .process-step {
   padding-top: 24px;
   border-top: 1px solid var(--line);
-  transition: border-color var(--t-mid) var(--ease);
+  transition: border-color var(--t-mid) var(--ease),
+              transform var(--t-mid) var(--ease);
 }
 
 .process-step:hover {
   border-top-color: var(--green);
+  transform: translateY(-3px);
 }
 
 .process-num {
@@ -761,11 +767,17 @@ strong {
   color: var(--green);
   letter-spacing: 0.04em;
   margin-bottom: 14px;
+  transition: color var(--t-mid) var(--ease);
 }
 
 .process-step h3 {
   font-size: 1.15rem;
   margin-bottom: 8px;
+  transition: color var(--t-mid) var(--ease);
+}
+
+.process-step:hover h3 {
+  color: var(--green);
 }
 
 .process-step p {
@@ -813,7 +825,7 @@ strong {
   font-weight: 500;
   text-align: left;
   color: var(--ink);
-  transition: color var(--t-fast) var(--ease),
+  transition: color var(--t-mid) var(--ease),
               padding var(--t-mid) var(--ease);
 }
 
@@ -899,6 +911,7 @@ strong {
 }
 
 .contact-details li {
+  position: relative;
   display: grid;
   grid-template-columns: auto 1fr auto;
   align-items: center;
@@ -922,12 +935,14 @@ strong {
   background: var(--soft);
   color: var(--green);
   transition: background var(--t-mid) var(--ease),
-              color var(--t-mid) var(--ease);
+              color var(--t-mid) var(--ease),
+              transform var(--t-mid) var(--ease);
 }
 
 .contact-details li:hover .contact-icon {
   background: var(--green);
   color: #ffffff;
+  transform: scale(1.05);
 }
 
 .contact-meta small {
@@ -1094,6 +1109,12 @@ strong {
 
 /* ============================================================
    19. VALUES
+   ------------------------------------------------------------
+   Smooth, simple row animations:
+   - Row background fades in
+   - Icon fills green
+   - Title tints to green
+   - Soft left accent slides in
    ============================================================ */
 .values {
   border-bottom: 1px solid var(--line-2);
@@ -1106,6 +1127,7 @@ strong {
 }
 
 .value-item {
+  position: relative;
   display: grid;
   grid-template-columns: 60px 1fr;
   gap: 32px;
@@ -1116,10 +1138,27 @@ strong {
               padding var(--t-mid) var(--ease);
 }
 
+.value-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--green);
+  transform: scaleY(0);
+  transform-origin: center;
+  transition: transform var(--t-mid) var(--ease);
+}
+
 .value-item:hover {
   background: var(--soft);
-  padding-left: 16px;
-  padding-right: 16px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.value-item:hover::before {
+  transform: scaleY(1);
 }
 
 .value-icon {
@@ -1131,17 +1170,24 @@ strong {
   background: var(--soft);
   color: var(--green);
   transition: background var(--t-mid) var(--ease),
-              color var(--t-mid) var(--ease);
+              color var(--t-mid) var(--ease),
+              transform var(--t-mid) var(--ease);
 }
 
 .value-item:hover .value-icon {
   background: var(--green);
   color: #ffffff;
+  transform: rotate(-4deg) scale(1.05);
 }
 
 .value-body h3 {
   font-size: 1.2rem;
   margin-bottom: 8px;
+  transition: color var(--t-mid) var(--ease);
+}
+
+.value-item:hover .value-body h3 {
+  color: var(--green);
 }
 
 .value-body p {
@@ -1149,6 +1195,11 @@ strong {
   line-height: 1.75;
   color: var(--muted);
   max-width: 560px;
+  transition: color var(--t-mid) var(--ease);
+}
+
+.value-item:hover .value-body p {
+  color: var(--ink-2);
 }
 
 /* ============================================================
@@ -1213,11 +1264,13 @@ strong {
   border-bottom: 1px solid var(--line);
   font-size: 0.95rem;
   color: var(--ink-2);
-  transition: padding var(--t-mid) var(--ease);
+  transition: padding var(--t-mid) var(--ease),
+              color var(--t-mid) var(--ease);
 }
 
 .approach-item:hover {
   padding-left: 8px;
+  color: var(--green);
 }
 
 .approach-check {
@@ -1233,11 +1286,16 @@ strong {
 }
 
 .approach-item:hover .approach-check {
-  transform: scale(1.08);
+  transform: scale(1.1);
 }
 
 /* ============================================================
    22. WHO WE WORK WITH
+   ------------------------------------------------------------
+   Smooth, simple grid animations:
+   - Cell background fades in
+   - Title tints to green
+   - A short green underline grows under the title
    ============================================================ */
 .who {
   border-bottom: 1px solid var(--line-2);
@@ -1251,6 +1309,7 @@ strong {
 }
 
 .who-item {
+  position: relative;
   padding: 32px 32px 32px 0;
   border-bottom: 1px solid var(--line);
   transition: background var(--t-mid) var(--ease),
@@ -1271,8 +1330,32 @@ strong {
 }
 
 .who-item h3 {
+  position: relative;
+  display: inline-block;
   font-size: 1.1rem;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
+  transition: color var(--t-mid) var(--ease);
+}
+
+.who-item h3::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 1.5px;
+  background: var(--green);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--t-mid) var(--ease);
+}
+
+.who-item:hover h3 {
+  color: var(--green);
+}
+
+.who-item:hover h3::after {
+  transform: scaleX(1);
 }
 
 .who-item p {
@@ -1280,6 +1363,11 @@ strong {
   line-height: 1.7;
   color: var(--muted);
   max-width: 320px;
+  transition: color var(--t-mid) var(--ease);
+}
+
+.who-item:hover p {
+  color: var(--ink-2);
 }
 
 /* ============================================================
@@ -1588,6 +1676,12 @@ strong {
     grid-template-columns: 1fr;
     gap: 12px;
     padding: 28px 0;
+  }
+
+  .service-item:hover,
+  .value-item:hover {
+    padding-left: 12px;
+    padding-right: 12px;
   }
 
   .process-list {
