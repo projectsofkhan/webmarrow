@@ -1,8 +1,8 @@
 /* ============================================================
    WEBMARROW — STYLE.CSS
    ------------------------------------------------------------
-   A quiet, editorial system. Solid colours only. Pure white
-   background. No gradients. No emojis. Smooth, simple motion.
+   Pure white background. Solid colours. Slow, smooth motion.
+   Cards animate with soft, gradual transitions only.
    ============================================================ */
 
 /* ============================================================
@@ -85,10 +85,7 @@ select:focus {
 }
 
 a:focus-visible,
-button:focus-visible,
-input:focus-visible,
-textarea:focus-visible,
-select:focus-visible {
+button:focus-visible {
   outline: 2px solid var(--green);
   outline-offset: 3px;
   border-radius: 4px;
@@ -98,7 +95,6 @@ select:focus-visible {
    03. DESIGN TOKENS
    ============================================================ */
 :root {
-  /* Pure white background everywhere */
   --bg: #ffffff;
   --surface: #ffffff;
   --soft: #f6f6f4;
@@ -123,13 +119,14 @@ select:focus-visible {
   --r-md: 10px;
   --r-lg: 14px;
 
+  /* Motion — slow and smooth */
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
 
-  --t-fast: 0.24s;
-  --t-mid: 0.5s;
-  --t-slow: 0.9s;
+  --t-fast: 0.3s;
+  --t-mid: 0.6s;
+  --t-slow: 1.05s;
 
   --header-h: 76px;
   --wrap: 1080px;
@@ -159,22 +156,11 @@ h4 {
   color: var(--ink);
 }
 
-h1 {
-  font-size: clamp(2.4rem, 5.2vw, 4.1rem);
-}
+h1 { font-size: clamp(2.4rem, 5.2vw, 4.1rem); }
+h2 { font-size: clamp(1.75rem, 3.4vw, 2.5rem); }
+h3 { font-size: 1.1rem; letter-spacing: -0.015em; }
 
-h2 {
-  font-size: clamp(1.75rem, 3.4vw, 2.5rem);
-}
-
-h3 {
-  font-size: 1.1rem;
-  letter-spacing: -0.015em;
-}
-
-p {
-  color: var(--muted);
-}
+p { color: var(--muted); }
 
 em {
   font-style: normal;
@@ -233,7 +219,7 @@ strong {
 }
 
 /* ============================================================
-   07. PRELOADER
+   07. PRELOADER  — slow, calm reveal
    ============================================================ */
 .preloader {
   position: fixed;
@@ -242,10 +228,10 @@ strong {
   display: grid;
   place-items: center;
   align-content: center;
-  gap: 14px;
+  gap: 20px;
   background: var(--bg);
-  transition: opacity 0.5s var(--ease),
-              visibility 0.5s var(--ease);
+  transition: opacity 1s var(--ease-out),
+              visibility 1s var(--ease-out);
 }
 
 .preloader.is-hidden {
@@ -254,19 +240,39 @@ strong {
 }
 
 .preloader-logo {
-  width: 36px;
-  height: 36px;
+  width: 72px;
+  height: 72px;
   object-fit: contain;
-  animation: fadeUp 0.8s var(--ease-out) both;
+  opacity: 0;
+  transform: translateY(14px) scale(0.96);
+  animation: preloadReveal 1.6s var(--ease-out) forwards;
+  animation-delay: 0.15s;
 }
 
 .preloader-name {
   font-family: 'Manrope', sans-serif;
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 600;
-  letter-spacing: -0.02em;
-  color: var(--ink);
-  animation: fadeUp 0.8s 0.12s var(--ease-out) both;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+  opacity: 0;
+  transform: translateY(10px);
+  animation: preloadReveal 1.6s var(--ease-out) forwards;
+  animation-delay: 0.55s;
+}
+
+@keyframes preloadReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(14px) scale(0.96);
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 /* ============================================================
@@ -317,9 +323,7 @@ strong {
   transition: opacity var(--t-fast) var(--ease);
 }
 
-.brand:hover {
-  opacity: 0.75;
-}
+.brand:hover { opacity: 0.75; }
 
 .brand-logo {
   width: 30px;
@@ -328,9 +332,7 @@ strong {
   border-radius: 6px;
 }
 
-.brand-name {
-  color: var(--ink);
-}
+.brand-name { color: var(--ink); }
 
 /* ============================================================
    09. NAVIGATION
@@ -364,14 +366,10 @@ strong {
 }
 
 .nav-link:hover,
-.nav-link.is-active {
-  color: var(--ink);
-}
+.nav-link.is-active { color: var(--ink); }
 
 .nav-link:hover::after,
-.nav-link.is-active::after {
-  transform: scaleX(1);
-}
+.nav-link.is-active::after { transform: scaleX(1); }
 
 .nav-cta {
   display: inline-flex;
@@ -403,14 +401,9 @@ strong {
   z-index: 0;
 }
 
-.nav-cta > * {
-  position: relative;
-  z-index: 1;
-}
+.nav-cta > * { position: relative; z-index: 1; }
 
-.nav-cta-icon {
-  transition: transform var(--t-mid) var(--ease);
-}
+.nav-cta-icon { transition: transform var(--t-mid) var(--ease); }
 
 .nav-cta:hover {
   color: #ffffff;
@@ -422,13 +415,9 @@ strong {
   transform-origin: left center;
 }
 
-.nav-cta:hover .nav-cta-icon {
-  transform: translateX(3px);
-}
+.nav-cta:hover .nav-cta-icon { transform: translateX(3px); }
 
-.nav-cta:active {
-  transform: translateY(1px);
-}
+.nav-cta:active { transform: translateY(1px); }
 
 /* ============================================================
    10. MOBILE NAVIGATION
@@ -445,9 +434,7 @@ strong {
               border-color var(--t-fast) var(--ease);
 }
 
-.nav-toggle:hover {
-  background: var(--soft);
-}
+.nav-toggle:hover { background: var(--soft); }
 
 .nav-toggle span {
   position: absolute;
@@ -462,13 +449,8 @@ strong {
               top var(--t-mid) var(--ease);
 }
 
-.nav-toggle span:nth-child(1) {
-  top: 16px;
-}
-
-.nav-toggle span:nth-child(2) {
-  top: 22px;
-}
+.nav-toggle span:nth-child(1) { top: 16px; }
+.nav-toggle span:nth-child(2) { top: 22px; }
 
 .nav-toggle.is-open span:nth-child(1) {
   top: 19px;
@@ -505,9 +487,7 @@ strong {
   -webkit-tap-highlight-color: transparent;
 }
 
-.btn .btn-icon {
-  transition: transform var(--t-mid) var(--ease);
-}
+.btn .btn-icon { transition: transform var(--t-mid) var(--ease); }
 
 .btn-primary {
   background: var(--ink);
@@ -519,13 +499,9 @@ strong {
   color: #ffffff;
 }
 
-.btn-primary:hover .btn-icon {
-  transform: translate(3px, -3px);
-}
+.btn-primary:hover .btn-icon { transform: translate(3px, -3px); }
 
-.btn-primary:active {
-  transform: translateY(1px) scale(0.985);
-}
+.btn-primary:active { transform: translateY(1px) scale(0.985); }
 
 .btn-ghost {
   background: transparent;
@@ -550,10 +526,7 @@ strong {
   z-index: 0;
 }
 
-.btn-ghost > * {
-  position: relative;
-  z-index: 1;
-}
+.btn-ghost > * { position: relative; z-index: 1; }
 
 .btn-ghost:hover,
 .btn-ghost:focus-visible,
@@ -570,20 +543,14 @@ strong {
   transform-origin: left center;
 }
 
-.btn-ghost:hover .btn-icon {
-  transform: translateX(4px);
-}
+.btn-ghost:hover .btn-icon { transform: translateX(4px); }
 
-.btn-ghost:active {
-  transform: translateY(1px) scale(0.985);
-}
+.btn-ghost:active { transform: translateY(1px) scale(0.985); }
 
-.btn-full {
-  width: 100%;
-}
+.btn-full { width: 100%; }
 
 /* ============================================================
-   12. HERO (HOME)
+   12. HERO
    ============================================================ */
 .hero {
   padding-top: calc(var(--header-h) + 90px);
@@ -606,13 +573,8 @@ strong {
   margin-bottom: 24px;
 }
 
-.hero-title {
-  margin-bottom: 24px;
-}
-
-.hero-title em {
-  color: var(--green);
-}
+.hero-title { margin-bottom: 24px; }
+.hero-title em { color: var(--green); }
 
 .hero-lead {
   max-width: 560px;
@@ -639,12 +601,7 @@ strong {
 }
 
 /* ============================================================
-   13. SERVICES
-   ------------------------------------------------------------
-   Smooth, simple row animations:
-   - Row background fades in
-   - Number and title tint to green
-   - A soft green left accent slides in
+   13. SERVICES — soft card animations
    ============================================================ */
 .services {
   border-top: 1px solid var(--line-2);
@@ -653,8 +610,7 @@ strong {
 .service-list {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 0;
-  border-top: 1px solid var(--line);
+  gap: 12px;
 }
 
 .service-item {
@@ -663,33 +619,22 @@ strong {
   grid-template-columns: 80px 1fr;
   gap: 32px;
   align-items: start;
-  padding: 36px 0;
-  border-bottom: 1px solid var(--line);
+  padding: 32px 28px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--bg);
   transition: background var(--t-mid) var(--ease),
-              padding var(--t-mid) var(--ease);
-}
-
-.service-item::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  background: var(--green);
-  transform: scaleY(0);
-  transform-origin: center;
-  transition: transform var(--t-mid) var(--ease);
+              border-color var(--t-mid) var(--ease),
+              transform var(--t-mid) var(--ease),
+              box-shadow var(--t-mid) var(--ease);
+  will-change: transform;
 }
 
 .service-item:hover {
   background: var(--soft);
-  padding-left: 20px;
-  padding-right: 20px;
-}
-
-.service-item:hover::before {
-  transform: scaleY(1);
+  border-color: var(--line-2);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px -14px rgba(23, 24, 26, 0.08);
 }
 
 .service-num {
@@ -698,9 +643,8 @@ strong {
   font-weight: 600;
   color: var(--green);
   letter-spacing: 0.04em;
-  padding-top: 6px;
-  transition: color var(--t-mid) var(--ease),
-              transform var(--t-mid) var(--ease);
+  padding-top: 4px;
+  transition: transform var(--t-mid) var(--ease);
 }
 
 .service-item:hover .service-num {
@@ -708,7 +652,7 @@ strong {
 }
 
 .service-body h3 {
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   margin-bottom: 8px;
   transition: color var(--t-mid) var(--ease);
 }
@@ -722,20 +666,10 @@ strong {
   line-height: 1.7;
   color: var(--muted);
   max-width: 560px;
-  transition: color var(--t-mid) var(--ease);
-}
-
-.service-item:hover .service-body p {
-  color: var(--ink-2);
 }
 
 /* ============================================================
    14. PROCESS
-   ------------------------------------------------------------
-   Smooth, simple column animations:
-   - Top border turns green
-   - Number and title fade to green
-   - Subtle lift
    ============================================================ */
 .process {
   border-top: 1px solid var(--line-2);
@@ -744,19 +678,26 @@ strong {
 .process-list {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 40px;
+  gap: 20px;
 }
 
 .process-step {
-  padding-top: 24px;
-  border-top: 1px solid var(--line);
-  transition: border-color var(--t-mid) var(--ease),
-              transform var(--t-mid) var(--ease);
+  padding: 28px 24px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--bg);
+  transition: background var(--t-mid) var(--ease),
+              border-color var(--t-mid) var(--ease),
+              transform var(--t-mid) var(--ease),
+              box-shadow var(--t-mid) var(--ease);
+  will-change: transform;
 }
 
 .process-step:hover {
-  border-top-color: var(--green);
-  transform: translateY(-3px);
+  background: var(--soft);
+  border-color: var(--line-2);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px -14px rgba(23, 24, 26, 0.08);
 }
 
 .process-num {
@@ -767,18 +708,15 @@ strong {
   color: var(--green);
   letter-spacing: 0.04em;
   margin-bottom: 14px;
-  transition: color var(--t-mid) var(--ease);
 }
 
 .process-step h3 {
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   margin-bottom: 8px;
   transition: color var(--t-mid) var(--ease);
 }
 
-.process-step:hover h3 {
-  color: var(--green);
-}
+.process-step:hover h3 { color: var(--green); }
 
 .process-step p {
   font-size: 0.9rem;
@@ -800,18 +738,30 @@ strong {
   align-items: start;
 }
 
-.faq-copy .section-title {
-  margin-bottom: 16px;
-}
+.faq-copy .section-title { margin-bottom: 16px; }
 
 .faq-list {
   display: grid;
-  gap: 0;
-  border-top: 1px solid var(--line);
+  gap: 10px;
 }
 
 .faq-item {
-  border-bottom: 1px solid var(--line);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--bg);
+  transition: border-color var(--t-mid) var(--ease),
+              background var(--t-mid) var(--ease),
+              box-shadow var(--t-mid) var(--ease);
+}
+
+.faq-item:hover {
+  background: var(--soft);
+}
+
+.faq-item.is-open {
+  background: var(--bg);
+  border-color: var(--green);
+  box-shadow: 0 8px 24px -14px rgba(47, 122, 85, 0.25);
 }
 
 .faq-question {
@@ -820,20 +770,15 @@ strong {
   justify-content: space-between;
   gap: 16px;
   width: 100%;
-  padding: 22px 0;
+  padding: 20px 22px;
   font-size: 0.95rem;
   font-weight: 500;
   text-align: left;
   color: var(--ink);
-  transition: color var(--t-mid) var(--ease),
-              padding var(--t-mid) var(--ease);
+  transition: color var(--t-mid) var(--ease);
 }
 
-.faq-question:hover {
-  color: var(--green);
-  padding-left: 8px;
-  padding-right: 8px;
-}
+.faq-question:hover { color: var(--green); }
 
 .faq-icon {
   position: relative;
@@ -855,15 +800,8 @@ strong {
               opacity var(--t-mid) var(--ease);
 }
 
-.faq-icon::before {
-  width: 12px;
-  height: 1.4px;
-}
-
-.faq-icon::after {
-  width: 1.4px;
-  height: 12px;
-}
+.faq-icon::before { width: 12px; height: 1.4px; }
+.faq-icon::after  { width: 1.4px; height: 12px; }
 
 .faq-item.is-open .faq-icon::after {
   transform: translate(-50%, -50%) rotate(90deg);
@@ -877,7 +815,7 @@ strong {
 }
 
 .faq-answer p {
-  padding: 0 0 22px;
+  padding: 0 22px 20px;
   font-size: 0.88rem;
   line-height: 1.75;
   color: var(--muted);
@@ -885,7 +823,7 @@ strong {
 }
 
 /* ============================================================
-   16. CONTACT
+   16. CONTACT (links only)
    ============================================================ */
 .contact {
   padding: 96px 0;
@@ -899,31 +837,34 @@ strong {
   align-items: start;
 }
 
-.contact-copy .section-title {
-  margin-bottom: 18px;
-}
+.contact-copy .section-title { margin-bottom: 18px; }
 
 .contact-details {
-  margin-top: 40px;
   display: grid;
-  gap: 0;
-  border-top: 1px solid var(--line);
+  gap: 12px;
 }
 
 .contact-details li {
-  position: relative;
   display: grid;
   grid-template-columns: auto 1fr auto;
   align-items: center;
   gap: 16px;
-  padding: 18px 0;
-  border-bottom: 1px solid var(--line);
-  transition: padding var(--t-mid) var(--ease);
+  padding: 18px 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--bg);
+  transition: background var(--t-mid) var(--ease),
+              border-color var(--t-mid) var(--ease),
+              transform var(--t-mid) var(--ease),
+              box-shadow var(--t-mid) var(--ease);
+  will-change: transform;
 }
 
 .contact-details li:hover {
-  padding-left: 8px;
-  padding-right: 8px;
+  background: var(--soft);
+  border-color: var(--line-2);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px -14px rgba(23, 24, 26, 0.08);
 }
 
 .contact-icon {
@@ -935,14 +876,12 @@ strong {
   background: var(--soft);
   color: var(--green);
   transition: background var(--t-mid) var(--ease),
-              color var(--t-mid) var(--ease),
-              transform var(--t-mid) var(--ease);
+              color var(--t-mid) var(--ease);
 }
 
 .contact-details li:hover .contact-icon {
   background: var(--green);
   color: #ffffff;
-  transform: scale(1.05);
 }
 
 .contact-meta small {
@@ -961,9 +900,7 @@ strong {
   transition: color var(--t-fast) var(--ease);
 }
 
-.contact-meta a:hover {
-  color: var(--green);
-}
+.contact-meta a:hover { color: var(--green); }
 
 .copy-btn {
   font-size: 0.72rem;
@@ -984,88 +921,6 @@ strong {
   background: var(--green);
   border-color: var(--green);
   color: #ffffff;
-}
-
-.contact-form {
-  display: grid;
-  gap: 4px;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--r-lg);
-  padding: 32px;
-}
-
-.field {
-  display: grid;
-  gap: 6px;
-  margin-bottom: 16px;
-}
-
-.field label {
-  font-size: 0.78rem;
-  font-weight: 500;
-  color: var(--ink-2);
-  letter-spacing: 0.005em;
-}
-
-.field input,
-.field textarea,
-.field select {
-  width: 100%;
-  padding: 12px 0;
-  border: 0;
-  border-bottom: 1px solid var(--line);
-  border-radius: 0;
-  background: transparent;
-  font-size: 0.92rem;
-  color: var(--ink);
-  transition: border-color var(--t-mid) var(--ease);
-}
-
-.field textarea {
-  resize: vertical;
-  min-height: 92px;
-  font-family: inherit;
-}
-
-.field input::placeholder,
-.field textarea::placeholder {
-  color: var(--muted-2);
-}
-
-.field input:focus,
-.field textarea:focus {
-  border-bottom-color: var(--green);
-}
-
-.field input.is-error,
-.field textarea.is-error {
-  border-bottom-color: var(--error);
-}
-
-.field-error {
-  font-size: 0.72rem;
-  color: var(--error);
-  min-height: 14px;
-}
-
-.form-note {
-  font-size: 0.74rem;
-  line-height: 1.6;
-  color: var(--muted-2);
-  margin-top: 10px;
-}
-
-.form-note strong {
-  color: var(--ink-2);
-  font-weight: 500;
-}
-
-.form-status {
-  font-size: 0.78rem;
-  color: var(--green);
-  min-height: 18px;
-  margin-top: 6px;
 }
 
 /* ============================================================
@@ -1108,13 +963,7 @@ strong {
 }
 
 /* ============================================================
-   19. VALUES
-   ------------------------------------------------------------
-   Smooth, simple row animations:
-   - Row background fades in
-   - Icon fills green
-   - Title tints to green
-   - Soft left accent slides in
+   19. VALUES — soft card animations
    ============================================================ */
 .values {
   border-bottom: 1px solid var(--line-2);
@@ -1122,43 +971,31 @@ strong {
 
 .value-list {
   display: grid;
-  gap: 0;
-  border-top: 1px solid var(--line);
+  grid-template-columns: 1fr;
+  gap: 12px;
 }
 
 .value-item {
-  position: relative;
   display: grid;
   grid-template-columns: 60px 1fr;
   gap: 32px;
   align-items: start;
-  padding: 36px 0;
-  border-bottom: 1px solid var(--line);
+  padding: 28px 26px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--bg);
   transition: background var(--t-mid) var(--ease),
-              padding var(--t-mid) var(--ease);
-}
-
-.value-item::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  background: var(--green);
-  transform: scaleY(0);
-  transform-origin: center;
-  transition: transform var(--t-mid) var(--ease);
+              border-color var(--t-mid) var(--ease),
+              transform var(--t-mid) var(--ease),
+              box-shadow var(--t-mid) var(--ease);
+  will-change: transform;
 }
 
 .value-item:hover {
   background: var(--soft);
-  padding-left: 20px;
-  padding-right: 20px;
-}
-
-.value-item:hover::before {
-  transform: scaleY(1);
+  border-color: var(--line-2);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px -14px rgba(23, 24, 26, 0.08);
 }
 
 .value-icon {
@@ -1170,36 +1007,27 @@ strong {
   background: var(--soft);
   color: var(--green);
   transition: background var(--t-mid) var(--ease),
-              color var(--t-mid) var(--ease),
-              transform var(--t-mid) var(--ease);
+              color var(--t-mid) var(--ease);
 }
 
 .value-item:hover .value-icon {
   background: var(--green);
   color: #ffffff;
-  transform: rotate(-4deg) scale(1.05);
 }
 
 .value-body h3 {
-  font-size: 1.2rem;
+  font-size: 1.15rem;
   margin-bottom: 8px;
   transition: color var(--t-mid) var(--ease);
 }
 
-.value-item:hover .value-body h3 {
-  color: var(--green);
-}
+.value-item:hover .value-body h3 { color: var(--green); }
 
 .value-body p {
   font-size: 0.92rem;
   line-height: 1.75;
   color: var(--muted);
   max-width: 560px;
-  transition: color var(--t-mid) var(--ease);
-}
-
-.value-item:hover .value-body p {
-  color: var(--ink-2);
 }
 
 /* ============================================================
@@ -1252,25 +1080,29 @@ strong {
 
 .approach-list {
   display: grid;
-  gap: 0;
-  border-top: 1px solid var(--line);
+  gap: 10px;
 }
 
 .approach-item {
   display: flex;
   align-items: center;
   gap: 14px;
-  padding: 20px 0;
-  border-bottom: 1px solid var(--line);
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--bg);
   font-size: 0.95rem;
   color: var(--ink-2);
-  transition: padding var(--t-mid) var(--ease),
-              color var(--t-mid) var(--ease);
+  transition: background var(--t-mid) var(--ease),
+              border-color var(--t-mid) var(--ease),
+              transform var(--t-mid) var(--ease);
+  will-change: transform;
 }
 
 .approach-item:hover {
-  padding-left: 8px;
-  color: var(--green);
+  background: var(--soft);
+  border-color: var(--line-2);
+  transform: translateY(-2px);
 }
 
 .approach-check {
@@ -1282,20 +1114,10 @@ strong {
   background: var(--green);
   color: #ffffff;
   flex-shrink: 0;
-  transition: transform var(--t-mid) var(--ease);
-}
-
-.approach-item:hover .approach-check {
-  transform: scale(1.1);
 }
 
 /* ============================================================
-   22. WHO WE WORK WITH
-   ------------------------------------------------------------
-   Smooth, simple grid animations:
-   - Cell background fades in
-   - Title tints to green
-   - A short green underline grows under the title
+   22. WHO WE WORK WITH — soft card animations
    ============================================================ */
 .who {
   border-bottom: 1px solid var(--line-2);
@@ -1304,70 +1126,41 @@ strong {
 .who-list {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 0;
-  border-top: 1px solid var(--line);
+  gap: 12px;
 }
 
 .who-item {
-  position: relative;
-  padding: 32px 32px 32px 0;
-  border-bottom: 1px solid var(--line);
+  padding: 28px 26px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--bg);
   transition: background var(--t-mid) var(--ease),
-              padding var(--t-mid) var(--ease);
-}
-
-.who-item:nth-child(odd) {
-  border-right: 1px solid var(--line);
-  padding-right: 40px;
-}
-
-.who-item:nth-child(even) {
-  padding-left: 40px;
+              border-color var(--t-mid) var(--ease),
+              transform var(--t-mid) var(--ease),
+              box-shadow var(--t-mid) var(--ease);
+  will-change: transform;
 }
 
 .who-item:hover {
   background: var(--soft);
+  border-color: var(--line-2);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px -14px rgba(23, 24, 26, 0.08);
 }
 
 .who-item h3 {
-  position: relative;
-  display: inline-block;
   font-size: 1.1rem;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
   transition: color var(--t-mid) var(--ease);
 }
 
-.who-item h3::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: -4px;
-  width: 100%;
-  height: 1.5px;
-  background: var(--green);
-  transform: scaleX(0);
-  transform-origin: left center;
-  transition: transform var(--t-mid) var(--ease);
-}
-
-.who-item:hover h3 {
-  color: var(--green);
-}
-
-.who-item:hover h3::after {
-  transform: scaleX(1);
-}
+.who-item:hover h3 { color: var(--green); }
 
 .who-item p {
   font-size: 0.88rem;
   line-height: 1.7;
   color: var(--muted);
   max-width: 320px;
-  transition: color var(--t-mid) var(--ease);
-}
-
-.who-item:hover p {
-  color: var(--ink-2);
 }
 
 /* ============================================================
@@ -1380,9 +1173,7 @@ strong {
   text-align: center;
 }
 
-.cta-inner h2 {
-  margin-bottom: 12px;
-}
+.cta-inner h2 { margin-bottom: 12px; }
 
 .cta-inner p {
   font-size: 1rem;
@@ -1463,9 +1254,7 @@ strong {
   transition: color var(--t-fast) var(--ease);
 }
 
-.footer-bottom a:hover {
-  color: var(--green);
-}
+.footer-bottom a:hover { color: var(--green); }
 
 /* ============================================================
    25. BACK TO TOP
@@ -1497,9 +1286,7 @@ strong {
   transform: translateY(0);
 }
 
-.back-to-top:hover {
-  background: var(--green);
-}
+.back-to-top:hover { background: var(--green); }
 
 /* ============================================================
    26. TOAST
@@ -1528,13 +1315,13 @@ strong {
 }
 
 /* ============================================================
-   27. REVEAL ANIMATIONS
+   27. REVEAL ANIMATIONS — slow and smooth
    ============================================================ */
 .reveal {
   opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 1s var(--ease-out),
-              transform 1s var(--ease-out);
+  transform: translateY(28px);
+  transition: opacity 1.15s var(--ease-out),
+              transform 1.15s var(--ease-out);
   will-change: opacity, transform;
 }
 
@@ -1544,21 +1331,7 @@ strong {
 }
 
 /* ============================================================
-   28. KEYFRAMES
-   ============================================================ */
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* ============================================================
-   29. MEDIA QUERIES — 1000px
+   28. MEDIA QUERIES — 1000px
    ============================================================ */
 @media (max-width: 1000px) {
   .footer-top {
@@ -1574,26 +1347,17 @@ strong {
   }
 
   .process-list {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
   }
 
   .who-list {
     grid-template-columns: 1fr;
   }
-
-  .who-item:nth-child(odd) {
-    border-right: 0;
-    padding-right: 0;
-  }
-
-  .who-item:nth-child(even) {
-    padding-left: 0;
-  }
 }
 
 /* ============================================================
-   30. MEDIA QUERIES — 760px
+   29. MEDIA QUERIES — 760px
    ============================================================ */
 @media (max-width: 760px) {
   :root {
@@ -1635,9 +1399,7 @@ strong {
     color: var(--ink);
   }
 
-  .nav-link::after {
-    display: none;
-  }
+  .nav-link::after { display: none; }
 
   .nav-cta {
     margin-top: 16px;
@@ -1645,9 +1407,7 @@ strong {
     padding: 14px;
   }
 
-  .nav-toggle {
-    display: block;
-  }
+  .nav-toggle { display: block; }
 
   .hero {
     padding-top: calc(var(--header-h) + 60px);
@@ -1659,43 +1419,22 @@ strong {
     align-items: stretch;
   }
 
-  .hero-actions .btn {
-    width: 100%;
-  }
+  .hero-actions .btn { width: 100%; }
 
-  .section {
-    padding: 64px 0;
-  }
+  .section { padding: 64px 0; }
 
-  .section-head {
-    margin-bottom: 40px;
-  }
+  .section-head { margin-bottom: 40px; }
 
   .service-item,
   .value-item {
     grid-template-columns: 1fr;
     gap: 12px;
-    padding: 28px 0;
-  }
-
-  .service-item:hover,
-  .value-item:hover {
-    padding-left: 12px;
-    padding-right: 12px;
-  }
-
-  .process-list {
-    grid-template-columns: 1fr;
-    gap: 32px;
-  }
-
-  .contact {
-    padding: 64px 0;
-  }
-
-  .contact-form {
     padding: 24px 20px;
   }
+
+  .process-list { grid-template-columns: 1fr; gap: 12px; }
+
+  .contact { padding: 64px 0; }
 
   .footer-top {
     grid-template-columns: 1fr;
@@ -1714,13 +1453,8 @@ strong {
     bottom: 16px;
   }
 
-  .cta-band {
-    padding: 64px 0;
-  }
-
-  .quote-section {
-    padding: 56px 0;
-  }
+  .cta-band { padding: 64px 0; }
+  .quote-section { padding: 56px 0; }
 
   .about-hero {
     padding-top: calc(var(--header-h) + 60px);
@@ -1729,21 +1463,12 @@ strong {
 }
 
 /* ============================================================
-   31. MEDIA QUERIES — 520px
+   30. MEDIA QUERIES — 520px
    ============================================================ */
 @media (max-width: 520px) {
-  .hero-title {
-    font-size: 2.15rem;
-  }
-
-  .brand-name {
-    font-size: 0.95rem;
-  }
-
-  .brand-logo {
-    width: 26px;
-    height: 26px;
-  }
+  .hero-title { font-size: 2.15rem; }
+  .brand-name { font-size: 0.95rem; }
+  .brand-logo { width: 26px; height: 26px; }
 
   .contact-details li {
     grid-template-columns: auto 1fr;
@@ -1760,13 +1485,11 @@ strong {
     align-items: stretch;
   }
 
-  .cta-actions .btn {
-    width: 100%;
-  }
+  .cta-actions .btn { width: 100%; }
 }
 
 /* ============================================================
-   32. REDUCED MOTION
+   31. REDUCED MOTION
    ============================================================ */
 @media (prefers-reduced-motion: reduce) {
   *,
